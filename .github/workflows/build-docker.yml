@@ -11,6 +11,15 @@ on:
       - 'LICENSE'
       - 'Makefile'
       - '.gitignore'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - 'README'
+      - 'LICENSE'
+      - 'Makefile'
+      - '.gitignore'
 
 permissions:
   contents: read

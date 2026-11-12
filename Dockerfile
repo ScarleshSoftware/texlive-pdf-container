@@ -50,4 +50,4 @@ RUN apt-get update && apt-get install -y unzip && \
     luaotfload-tool --update --force
 
 WORKDIR /tex
-ENTRYPOINT [ "lualatex" ]
+ENTRYPOINT [ "luatex" ]

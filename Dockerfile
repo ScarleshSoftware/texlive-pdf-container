@@ -12,11 +12,10 @@ RUN apt-get update && \
         unzip \
         gnupg \
         fontconfig \
-        texlive-luatex \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-# TexLive mirror repos are a disaster, and tend to fail a lot. Unfortunately, the mirror list is performing questionable health checks and 
+# TexLive mirror repos are a disaster, and tend to fail a lot. Unfortunately, the mirror list is performing questionable health checks and
 # returning problematic ones.
 RUN curl -L -o install-tl-unx.tar.gz "${TEXLIVE_REPO}/install-tl-unx.tar.gz" && \
     tar -xzf install-tl-unx.tar.gz && \
@@ -25,19 +24,18 @@ RUN curl -L -o install-tl-unx.tar.gz "${TEXLIVE_REPO}/install-tl-unx.tar.gz" && 
     echo "selected_scheme scheme-basic" > texlive.profile && \
     echo "tlpdbopt_install_docfiles 0" >> texlive.profile && \
     echo "tlpdbopt_install_srcfiles 0" >> texlive.profile && \
+    echo "instopt_adjustpath 1" >> texlive.profile && \
     ./install-tl -profile texlive.profile -repository "${TEXLIVE_REPO}" && \
     cd .. && \
     rm -rf install-tl-*
-
-ENV PATH=$PATH:/usr/local/texlive/2025/bin/x86_64-linux
 
 # If you need more packages, add them here
 RUN tlmgr option repository "${TEXLIVE_REPO}" && \
     tlmgr install cormorantgaramond \
     ragged2e footmisc lipsum \
     xcolor ulem contour paracol \
-    contour fontspec eso-pic fontawesome5 \
-    luatexbase enumitem arydshln || true
+    fontspec lm eso-pic fontawesome5 \
+    luatexbase luaotfload enumitem arydshln
 
 # Adding Source Serif 4 system fonts
 WORKDIR /usr/local/share/fonts/source-serif-4
@@ -50,4 +48,4 @@ RUN apt-get update && apt-get install -y unzip && \
     luaotfload-tool --update --force
 
 WORKDIR /tex
-ENTRYPOINT [ "luatex" ]
+ENTRYPOINT [ "lualatex" ]

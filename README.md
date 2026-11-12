@@ -29,6 +29,6 @@ More info: https://tug.org/texlive/acquire.html
 ```
 Just keep re-running the build, it eventually passes, or set the `TEXLIVE_SOURCE_URL` environment variable before building via [./build_and_run.sh](./build_and_run.sh), i.e.
 ```sh
-export TEXLIVE_SOURCE_URL=https://gb.mirrors.cicku.me/ctan
+export TEXLIVE_SOURCE_URL=https://mirror.apps.cam.ac.uk/pub/tex-archive
 ./build_and_run.sh
 ```

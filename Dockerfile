@@ -13,6 +13,7 @@ RUN apt-get update && \
         gnupg \
         fontconfig \
         texlive-luatex \
+        texlive-fonts-recommended \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
@@ -50,4 +51,4 @@ RUN apt-get update && apt-get install -y unzip && \
     luaotfload-tool --update --force
 
 WORKDIR /tex
-ENTRYPOINT [ "luatex" ]
+ENTRYPOINT [ "lualatex" ]

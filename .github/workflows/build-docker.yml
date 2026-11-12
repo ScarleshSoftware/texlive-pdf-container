@@ -19,6 +19,8 @@ permissions:
 env:
   TAG: '1.0'
   TEST_IMAGE: texlive-test
+  # Pinned: mirror.ctan.org can redirect runners to mirrors with broken TLS
+  TEXLIVE_SOURCE_URL: ${{ vars.TEXLIVE_SOURCE_URL || 'https://gb.mirrors.cicku.me/ctan' }}
 
 jobs:
   build:
@@ -49,6 +51,7 @@ jobs:
           context: .
           file: ./Dockerfile
           load: true
+          build-args: TEXLIVE_SOURCE_URL=${{ env.TEXLIVE_SOURCE_URL }}
           tags: ${{ env.TEST_IMAGE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -68,5 +71,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
+          build-args: TEXLIVE_SOURCE_URL=${{ env.TEXLIVE_SOURCE_URL }}
           tags: ghcr.io/${{ steps.vars.outputs.OWNER_LC }}/texlive-full:${{ steps.vars.outputs.TAG }}
           cache-from: type=gha

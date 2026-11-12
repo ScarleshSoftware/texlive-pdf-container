@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FILE_PATH=$1
+FILE_PATH=${1:-"./sample.tex"}
 TEXLIVE_SOURCE_URL=${TEXLIVE_SOURCE_URL:-"https://mirror.ctan.org"}
 
 set -e
@@ -13,7 +13,7 @@ fi
 FILE_NAME=${FILE_PATH##*/}
 
 echo "Building and running LaTeX file: $FILE_NAME"
-IMAGE=${IMAGE:-ghcr.io/slashouse13/texlive-full:1.0}
+IMAGE=${IMAGE:-ghcr.io/scarleshsoftware/texlive-full:1.0}
 
 docker build --build-arg TEXLIVE_SOURCE_URL=$TEXLIVE_SOURCE_URL -t $IMAGE .
 

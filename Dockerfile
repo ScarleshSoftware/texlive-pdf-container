@@ -12,7 +12,6 @@ RUN apt-get update && \
         unzip \
         gnupg \
         fontconfig \
-        texlive-fonts-recommended \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
@@ -35,7 +34,7 @@ RUN tlmgr option repository "${TEXLIVE_REPO}" && \
     tlmgr install cormorantgaramond \
     ragged2e footmisc lipsum \
     xcolor ulem contour paracol \
-    fontspec eso-pic fontawesome5 \
+    fontspec lm eso-pic fontawesome5 \
     luatexbase luaotfload enumitem arydshln
 
 # Adding Source Serif 4 system fonts

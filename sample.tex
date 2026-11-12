@@ -1,0 +1,54 @@
+% Smoke test: touches every package installed via tlmgr plus the Source Serif 4 system font
+\documentclass[11pt]{article}
+
+\usepackage{fontspec}
+\setmainfont{Source Serif 4}
+\newfontfamily\cormorant{Cormorant Garamond}
+
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+\usepackage{contour}
+\usepackage{ragged2e}
+\usepackage[bottom]{footmisc}
+\usepackage{lipsum}
+\usepackage{paracol}
+\usepackage{eso-pic}
+\usepackage{fontawesome5}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+\definecolor{accent}{HTML}{2E5E8C}
+
+% Light watermark on every page to exercise eso-pic
+\AddToShipoutPictureBG{%
+  \AtPageCenter{\makebox(0,0){\color{accent!8}\fontsize{60}{60}\selectfont SAMPLE}}}
+
+\begin{document}
+
+{\cormorant\Huge\color{accent} TeX Live container test}
+
+\vspace{0.5em}
+Main font is \textbf{Source Serif 4}, with \textit{italics} and a footnote.\footnote{Placed by footmisc.}
+Some \uline{underlined} and \sout{struck} text, a \contour{accent}{contoured} word,
+and icons: \faGithub\ \faFilePdf\ \faCheckCircle.
+
+\section*{Lists}
+\begin{itemize}[label=\faAngleRight, leftmargin=*]
+  \item enumitem custom labels
+  \item fontawesome5 bullets
+\end{itemize}
+
+\section*{Dashed table}
+\begin{tabular}{l:c:r}
+  Left & Centre & Right \\ \hdashline
+  a & b & c \\
+\end{tabular}
+
+\section*{Two columns}
+\begin{paracol}{2}
+  \justifying\lipsum[1][1-4]
+  \switchcolumn
+  \RaggedRight\lipsum[2][1-4]
+\end{paracol}
+
+\end{document}
